@@ -1,10 +1,11 @@
+//The Real Slim Shady
 // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+var app = angular.module('starter', ['ionic', 'starter.controllers'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -39,14 +40,6 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
 
-  .state('app.browse', {
-    url: "/browse",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/browse.html"
-      }
-    }
-  })
     .state('app.playlists', {
       url: "/playlists",
       views: {
@@ -69,3 +62,72 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/playlists');
 });
+
+app.factory('geolocation', ['$window', function(win) {
+      
+       //tells the app the device is ready
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+    console.log("navigator.geolocation works well");}
+    //initializes the app
+  // Gets the current position of the user and centers the screen to that
+  var lat = 0;
+  var lng = 0;
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    function onSuccess(position){
+      lat = position.coords.latitude;
+      lng = position.coords.longitude;
+    }
+    //Defaults to pos (0,0) if position can not be determined
+    function onError(error){
+      alert('Error');
+      alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+      lat = 0;
+      lng = 0;
+    }
+    
+    
+}]);
+
+app.factory('map',['$window', '$q', function(win, $q) {
+  var lat = 0;
+  var lng = 0;
+  var locations = [];
+  return {
+    getLatLng: function() {
+      return {
+        lat: lat,
+        lng: lng
+      };
+    },
+    promise: $q(function(resolve, reject) {
+      //Creates a point at the users location
+      var myCenter = new google.maps.LatLng(0,0);
+      
+      //Initializes the map
+      function initialize() {
+        // Reset the markers
+        markers = [];
+        
+        // Initialize the map
+        var mapProp = {
+          center:new google.maps.LatLng(lat,lng),
+          zoom:9,
+          mapTypeId:google.maps.MapTypeId.ROADMAP
+        };
+        var map=new google.maps.Map(document.getElementById("googleMap"), mapProp);
+        
+        //Creates a Marker at the users current position
+        var currentPosMarker = new google.maps.Marker({position:myCenter,
+          animation:google.maps.Animation.BOUNCE
+        });
+        currentPosMarker.setMap(map);
+        
+        // Return the reference to the map
+        resolve(map);
+      }
+      
+      google.maps.event.addDomListener(window, 'load', initialize);
+    })
+  }
+}]);

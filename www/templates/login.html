@@ -1,6 +1,6 @@
 <ion-modal-view>
   <ion-header-bar>
-    <h1 class="title">Login</h1>
+    <h1 class="title">Enter The Location of Your Loo</h1>
     <div class="buttons">
       <button class="button button-clear" ng-click="closeLogin()">Close</button>
     </div>
@@ -9,15 +9,17 @@
     <form ng-submit="doLogin()">
       <div class="list">
         <label class="item item-input">
-          <span class="input-label">Username</span>
-          <input type="text" ng-model="loginData.username">
+          <span class="input-label">Comment About Loo: </span>
+          <input type="text" ng-model="looData.comment">
         </label>
         <label class="item item-input">
-          <span class="input-label">Password</span>
-          <input type="password" ng-model="loginData.password">
+          <span class="input-label">X Coord: </span>
+          <input type="xCoord" ng-model="looData.x">
+          <span class="input-label">Y Coord: </span>
+          <input type="yCoord" ng-model="looData.y">
         </label>
         <label class="item">
-          <button class="button button-block button-positive" type="submit">Log in</button>
+          <button class="button button-block button-positive" type="submit">Enter</button>
         </label>
       </div>
     </form>

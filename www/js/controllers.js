@@ -1,3 +1,4 @@
+//The Real Slim Shady
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
@@ -35,14 +36,26 @@ angular.module('starter.controllers', [])
 
 .controller('PlaylistsCtrl', function($scope) {
   $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
+    { title: 'Add a Loo', id: 1 },
+    { title: 'Find Nearest Loo', id: 2 }
   ];
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('PlaylistCtrl', function($scope, $stateParams, map, $q) {
+  // When the map is loaded
+  map.promise.then(function(response){
+    response.setCenter(new google.maps.LatLng(40.446, -123.909))
+  });
+  
+  // Arbitrary setTimeout promise
+  var myNewPromise = $q(function(resolve, reject) {
+    setTimeout(function() {
+      resolve('This worked! And should contain your geolocation data from your geolocation factory.');
+    }, 5000);
+  });
+  
+  // When both the map and geolocation promises are ready
+  $q.all([map.promise, myNewPromise], function(data) {
+    console.log(data);
+  });
 });
