@@ -6,25 +6,50 @@ src="http://maps.googleapis.com/maps/api/js">
 </script>
 
 <script>
-  src = "js/controllers.js"
+  //src = "js/controllers.js"
 </script>
 
 <script>
-var myCenter = new google.maps.LatLng(51.508742,-0.120850);
+ // src = "js/decoder.js"
+</script>
 
-function initialize() {
-  var mapProp = {
-    center:new google.maps.LatLng(51.508742,-0.120850),
-    zoom:5,
-    mapTypeId:google.maps.MapTypeId.ROADMAP
-  };
-  var map=new google.maps.Map(document.getElementById("googleMap"), mapProp);
-  var marker = new google.maps.Marker({position:myCenter,
-    animation:google.maps.Animation.BOUNCE
-  });
-  marker.setMap(map);
-}
-google.maps.event.addDomListener(window, 'load', initialize);
+
+<script>
+  // Gets the current position of the user and centers the screen to that
+  var lat;
+  var lng;
+  function getCurrentPos(){
+    navigator.geolocation.getCurrentPosition(onSuccess, onError)
+    var onSuccess = function(position){
+      lat = position.coords.latitude;
+      lng = position.coords.longitude;
+    }
+    //Defaults to London, England if position can not be determined
+    var onError = function(){
+      alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+      lat = 51.508742;
+      lng = -0.120850;
+    }
+  }
+  //Creates a point at the users location
+  var myCenter = new google.maps.LatLng(lat,lng);
+  
+  //Initializes the map
+  function initialize() {
+    var mapProp = {
+      center:new google.maps.LatLng(lat,lng),
+      zoom:5,
+      mapTypeId:google.maps.MapTypeId.ROADMAP
+    };
+    var map=new google.maps.Map(document.getElementById("googleMap"), mapProp);
+    
+    //Creates a Marker at the users current position
+    var currentPosMarker = new google.maps.Marker({position:myCenter,
+      animation:google.maps.Animation.BOUNCE
+    });
+    currentPosMarker.setMap(map);
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 </head>
 
