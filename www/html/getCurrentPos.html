@@ -1,0 +1,10 @@
+<script>
+  function getCurrentPos(){
+    navigator.geolocation.getCurrentPosition(onSuccess)
+  }
+
+  var onSuccess = function(position){
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
+  }
+</script>

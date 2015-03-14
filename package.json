@@ -15,6 +15,7 @@
     "shelljs": "^0.3.0"
   },
   "cordovaPlugins": [
-    "plugin.google.maps"
+    "plugin.google.maps",
+    "org.apache.cordova.geolocation"
   ]
 }
