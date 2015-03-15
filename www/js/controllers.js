@@ -24,7 +24,7 @@ angular.module('starter.controllers', [])
 
   // Will implemenet the adding of the data for our data plops
   $scope.addToilet = function() {
-    //console.log('Doing login', $scope.loginData);
+    console.log('Doing login', $scope.loginData);
   };
 })
 
@@ -33,7 +33,7 @@ angular.module('starter.controllers', [])
     $http.get('http://generalgoodsvendor.tk/hacks2015/getCoords.php').then(function(resp) {
     $scope.toilets = resp.data;},
     function(err) {
-    //console.error('ERR', err);
+    console.error('ERR', err);
   // err.status will contain the status code
   });
 })
@@ -55,11 +55,11 @@ angular.module('starter.controllers', [])
   var myNewPromise = $q(function(resolve, reject) {
     setTimeout(function() {
       resolve('This worked! And should contain your geolocation data from your geolocation factory.');
-    }, 5000);
+    }, 2000);
   });
   
   // When both the map and geolocation promises are ready
   $q.all([map.promise, myNewPromise], function(data) {
-    //console.log(data);
+    console.log(data);
   });
 });
