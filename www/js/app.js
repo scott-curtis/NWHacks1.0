@@ -103,15 +103,18 @@ app.factory('elements', ['$window', function(win, $q){
 }]);
 
 app.factory('map',['$window', '$q', function(win, $q, elements) {
+    toilets.X=[];
+    toilets.Y=[];
+    toilets.Comm=[];
     //retrieves the x coordinates
-  promise: elements(function(resolve, reject)
-    {resolve(toilets.X = [])});
+ // promise: elements(function(resolve, reject)
+   // {resolve(toilets.X = [])});
     //retrieves the y coordinates
-  promise1: elements(function(resolve, reject)
-    {resolve(toilets.Y = [])});
+  //promise1: elements(function(resolve, reject)
+    //{resolve(toilets.Y = [])});
     //retrieves the comments
-  promise2: elements(function(resolve, reject)
-  {resolve(toilets.Comm = [])});
+  //promise2: elements(function(resolve, reject)
+  //{resolve(toilets.Comm = [])});
   
   return {
     getLatLng: function() {

@@ -1,16 +1,6 @@
 //The Real Slim Shady
 angular.module('starter.controllers', [])
 
-.controller('getCoords', function($scope, $http) {
-    $scope.toilets = [];
-    $http.get('http://generalgoodsvendor.tk/hacks2015/getCoords.php').then(function(resp) {
-    $scope.toilets = resp.data;},
-    function(err) {
-    console.error('ERR', err);
-  // err.status will contain the status code
-  });
-})
-
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
   // Form data for the AddToilet modal
   $scope.loginData = {};
@@ -34,8 +24,18 @@ angular.module('starter.controllers', [])
 
   // Will implemenet the adding of the data for our data plops
   $scope.addToilet = function() {
-    console.log('Doing login', $scope.loginData);
+    //console.log('Doing login', $scope.loginData);
   };
+})
+
+.controller('getCoords', function($scope, $http) {
+    $scope.toilets = [];
+    $http.get('http://generalgoodsvendor.tk/hacks2015/getCoords.php').then(function(resp) {
+    $scope.toilets = resp.data;},
+    function(err) {
+    //console.error('ERR', err);
+  // err.status will contain the status code
+  });
 })
 
 .controller('PlaylistsCtrl', function($scope) {
@@ -60,6 +60,6 @@ angular.module('starter.controllers', [])
   
   // When both the map and geolocation promises are ready
   $q.all([map.promise, myNewPromise], function(data) {
-    console.log(data);
+    //console.log(data);
   });
 });
