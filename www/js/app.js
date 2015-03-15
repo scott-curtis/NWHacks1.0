@@ -5,6 +5,8 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
+var lat = 0;
+var lng = 0;
 var app = angular.module('starter', ['ionic', 'starter.controllers'])
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -70,8 +72,6 @@ app.factory('geolocation', ['$window', function(win) {
     console.log("navigator.geolocation works well");}
     //initializes the app
   // Gets the current position of the user and centers the screen to that
-  var lat = 0;
-  var lng = 0;
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
     function onSuccess(position){
       lat = position.coords.latitude;
@@ -88,9 +88,9 @@ app.factory('geolocation', ['$window', function(win) {
     
 }]);
 
+app.factory('')
+
 app.factory('map',['$window', '$q', function(win, $q) {
-  var lat = 0;
-  var lng = 0;
   var locations = [];
   return {
     getLatLng: function() {
@@ -101,7 +101,7 @@ app.factory('map',['$window', '$q', function(win, $q) {
     },
     promise: $q(function(resolve, reject) {
       //Creates a point at the users location
-      var myCenter = new google.maps.LatLng(0,0);
+      var myCenter = new google.maps.LatLng(lat,lng);
       
       //Initializes the map
       function initialize() {

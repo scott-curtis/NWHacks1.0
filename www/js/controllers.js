@@ -35,10 +35,12 @@ angular.module('starter.controllers', [])
   ];
 })
 
+//.controller('databaseController', function())
+
 .controller('PlaylistCtrl', function($scope, $stateParams, map, $q) {
   // When the map is loaded
   map.promise.then(function(response){
-    response.setCenter(new google.maps.LatLng(40.446, -123.909))
+    response.setCenter(new google.maps.LatLng(geolocation.lat, geolocation.lng ));
   });
   
   // Arbitrary setTimeout promise
