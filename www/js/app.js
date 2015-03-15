@@ -67,9 +67,9 @@ var app = angular.module('starter', ['ionic', 'starter.controllers'])
 app.factory('geolocation', ['$window', function(win) {
       
        //tells the app the device is ready
-    document.addEventListener("deviceready", onDeviceReady, false);
-    function onDeviceReady() {
-    console.log("navigator.geolocation works well");}
+    //document.addEventListener("deviceready", onDeviceReady, false);
+    //function onDeviceReady() {
+    //console.log("navigator.geolocation works well");}
     //initializes the app
   // Gets the current position of the user and centers the screen to that
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
@@ -85,49 +85,53 @@ app.factory('geolocation', ['$window', function(win) {
       lng = 0;
     }
     
-    
 }]);
 
-app.factory('elements', ['$window', function(win, getCoords){
+/* app.factory('elements', ['$window', function(win, getCoords){
   
   toilets = angular.module('toilets', []);
   console.log(toilets);
   toilets.filter('range', function(){
-    return function(input, total){
-      total = parseInt(total);
-      for(var i=0;i<total;i++)
-        if(i%3===0){toilets.Comm[i] = toilets[i];}
-        else if(i%2===0){toilets.Y[i] = toilets[i];}
-        else{toilets.X[i] = toilets[i];}
-        var arr =[toilets.X,toilets.Y,toilets.Comm];
-    };
-    
+    return toilets;
   });
-}]);
+}]); */
 
-app.factory('map',['$window', '$q', function(win, $q, elements) {
+app.factory('map',['$window', '$q', function(win, $q, geolocation) {
   
   //var xCoords = elements.arr[0];
   //var yCoords = elements.arr[1];
   //var comments = elements.arr[2];
+  toilets = angular.module('toilets', []);
+  toilets.filter('range', function(){return toilets});
+
   
   return {
-    getLatLng: function() {
+    /*getLatLng: function() {
       return {
         lat: lat,
         lng: lng
       };
-    },
+    }, */
+    
     promise: $q(function(resolve, reject) {
       //Creates a point at the users location
       var myCenter = new google.maps.LatLng(lat,lng);
       
-      var total
+      var comments = [];
+      var xCoords = [];
+      var yCoords = [];
       
+      total = parseInt(toilets.length);
+      for(var i=0;i<total;i++)
+        if(i%3===0){comments[i] = toilet[i];}
+        else if(i%2===0){yCoords[i] = toilet[i];}
+        else{xCoords[i] = toilets[i];}
+        
+        
       //Initializes the map
       function initialize() {
         // Reset the markers
-        markers = [];
+        //markers = [];
         
         // Initialize the map
         var mapProp = {
@@ -136,6 +140,15 @@ app.factory('map',['$window', '$q', function(win, $q, elements) {
           mapTypeId:google.maps.MapTypeId.ROADMAP
         };
         var map=new google.maps.Map(document.getElementById("googleMap"), mapProp);
+        
+        var temp;
+        var temp2;
+        angular.forEach(xCoords, function($scope, i){
+          temp = new google.maps.LatLng(xCoords[i], yCoords[i]);
+          temp2 = new google.maps.Marker({position: temp});
+          temp2.setMap(map);
+          alert('SUCCESS: ' + xCoord[i]);
+        } );
         
         //Creates a Marker at the users current position
         var currentPosMarker = new google.maps.Marker({position:myCenter,

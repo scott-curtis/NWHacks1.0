@@ -34,10 +34,16 @@ angular.module('starter.controllers', [])
     $scope.toilets = resp.data;},
     function(err) {
     console.error('ERR', err);
+    alert(toilets[0]);
   // err.status will contain the status code
   });
 })
+//a holding mechanism to pass values off to the map factory
+/*.controller('passValues', function($scope, $q, elements){
+    var values = $q(function(response){elements.toilets;});
+})*/
 
+  //some framework for the lists on the side
 .controller('PlaylistsCtrl', function($scope) {
   $scope.toiletOptions = [
     { title: 'Add a Loo', id: 1 },
@@ -45,7 +51,7 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams, map, $q) {
+.controller('PlaylistCtrl', function($scope, $stateParams, map, $geolocation, $q) {
   // When the map is loaded
   map.promise.then(function(response){
     response.setCenter(new google.maps.LatLng(geolocation.lat, geolocation.lng ));
@@ -56,10 +62,5 @@ angular.module('starter.controllers', [])
     setTimeout(function() {
       resolve('This worked! And should contain your geolocation data from your geolocation factory.');
     }, 2000);
-  });
-  
-  // When both the map and geolocation promises are ready
-  $q.all([map.promise, myNewPromise], function(data) {
-    console.log(data);
   });
 });
