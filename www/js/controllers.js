@@ -1,6 +1,17 @@
 //The Real Slim Shady
 angular.module('starter.controllers', [])
 
+.controller('getCoords', function($scope, $http) {
+    $scope.toilets = [];
+    $http.get('http://generalgoodsvendor.tk/hacks2015/getCoords.php').then(function(resp) {
+    $scope.toilets = resp.data;}, 
+
+function(err) {
+    console.error('ERR', err);
+  // err.status will contain the status code
+  })
+})
+
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
   // Form data for the AddToilet modal
   $scope.loginData = {};
