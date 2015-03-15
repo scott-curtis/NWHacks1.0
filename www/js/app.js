@@ -107,9 +107,9 @@ app.factory('elements', ['$window', function(win, getCoords){
 
 app.factory('map',['$window', '$q', function(win, $q, elements) {
   
-  var xCoords = elements.arr[0];
-  var yCoords = elements.arr[1];
-  var comments = elements.arr[2];
+  //var xCoords = elements.arr[0];
+  //var yCoords = elements.arr[1];
+  //var comments = elements.arr[2];
   
   return {
     getLatLng: function() {
