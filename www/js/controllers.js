@@ -35,7 +35,7 @@ angular.module('starter.controllers', [])
   ];
 })
 
-//.controller('databaseController', function())
+.controller('databaseController', function())
 
 .controller('PlaylistCtrl', function($scope, $stateParams, map, $q) {
   // When the map is loaded

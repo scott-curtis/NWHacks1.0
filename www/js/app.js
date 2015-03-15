@@ -88,10 +88,17 @@ app.factory('geolocation', ['$window', function(win) {
     
 }]);
 
-app.factory('')
+app.factory('elements', ['$window', function(win, $q){
+  
+  var
+  
+  
+})]);
 
-app.factory('map',['$window', '$q', function(win, $q) {
-  var locations = [];
+app.factory('map',['$window', '$q', function(win, $q, elements) {
+  toilets.X = [];
+  toilets.Y = [];
+  toilets.Comm = [];
   return {
     getLatLng: function() {
       return {
