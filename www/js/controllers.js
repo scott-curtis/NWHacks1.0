@@ -4,12 +4,11 @@ angular.module('starter.controllers', [])
 .controller('getCoords', function($scope, $http) {
     $scope.toilets = [];
     $http.get('http://generalgoodsvendor.tk/hacks2015/getCoords.php').then(function(resp) {
-    $scope.toilets = resp.data;}, 
-
-function(err) {
+    $scope.toilets = resp.data;},
+    function(err) {
     console.error('ERR', err);
   // err.status will contain the status code
-  })
+  });
 })
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
@@ -45,8 +44,6 @@ function(err) {
     { title: 'Find Nearest Loo', id: 2 }
   ];
 })
-
-.controller('databaseController', function())
 
 .controller('PlaylistCtrl', function($scope, $stateParams, map, $q) {
   // When the map is loaded

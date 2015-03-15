@@ -90,15 +90,29 @@ app.factory('geolocation', ['$window', function(win) {
 
 app.factory('elements', ['$window', function(win, $q){
   
-  var
-  
-  
-})]);
+  var toilets = angular.module('toilets', []);
+  toilets.filter('range', function(){
+    return function(input, total){
+      total = parseInt(total);
+      for(var i=0;i<total;i++)
+        if(i%3===0){toilets.Comm[i] = toilets[i];}
+        else if(i%2===0){toilets.Y[i] = toilets[i];}
+        else{toilets.X[i] = toilets[i];}
+    };
+  });
+}]);
 
 app.factory('map',['$window', '$q', function(win, $q, elements) {
-  toilets.X = [];
-  toilets.Y = [];
-  toilets.Comm = [];
+    //retrieves the x coordinates
+  promise: elements(function(resolve, reject)
+    {resolve(toilets.X = [])});
+    //retrieves the y coordinates
+  promise1: elements(function(resolve, reject)
+    {resolve(toilets.Y = [])});
+    //retrieves the comments
+  promise2: elements(function(resolve, reject)
+  {resolve(toilets.Comm = [])});
+  
   return {
     getLatLng: function() {
       return {
@@ -135,5 +149,5 @@ app.factory('map',['$window', '$q', function(win, $q, elements) {
       
       google.maps.event.addDomListener(window, 'load', initialize);
     })
-  }
+  };
 }]);
