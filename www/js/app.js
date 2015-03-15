@@ -106,9 +106,10 @@ app.factory('elements', ['$window', function(win, getCoords){
 }]);
 
 app.factory('map',['$window', '$q', function(win, $q, elements) {
-  toilets.X = elements.arr[0];
-  toilets.Y = elements.arr[1];
-  toilets.Comm = elements.arr[2];
+  
+  var xCoords = elements.arr[0];
+  var yCoords = elements.arr[1];
+  var comments = elements.arr[2];
   
   return {
     getLatLng: function() {
@@ -120,6 +121,8 @@ app.factory('map',['$window', '$q', function(win, $q, elements) {
     promise: $q(function(resolve, reject) {
       //Creates a point at the users location
       var myCenter = new google.maps.LatLng(lat,lng);
+      
+      var total
       
       //Initializes the map
       function initialize() {
