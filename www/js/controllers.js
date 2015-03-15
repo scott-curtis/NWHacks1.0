@@ -29,7 +29,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
+  $scope.toiletOptions = [
     { title: 'Add a Loo', id: 1 },
     { title: 'Find Nearest Loo', id: 2 }
   ];
