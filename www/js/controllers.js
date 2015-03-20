@@ -34,7 +34,6 @@ angular.module('starter.controllers', [])
     $scope.toilets = resp.data;},
     function(err) {
     console.error('ERR', err);
-    alert(toilets[0]);
   // err.status will contain the status code
   });
 })
@@ -51,7 +50,7 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams, map, $geolocation, $q) {
+.controller('PlaylistCtrl', function($scope, $stateParams, map, geolocation, $q) {
   // When the map is loaded
   map.promise.then(function(response){
     response.setCenter(new google.maps.LatLng(geolocation.lat, geolocation.lng ));

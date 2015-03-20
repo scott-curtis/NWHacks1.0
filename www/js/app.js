@@ -5,8 +5,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var lat = 0;
-var lng = 0;
+var loc;
 var app = angular.module('starter', ['ionic', 'starter.controllers'])
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -65,7 +64,7 @@ var app = angular.module('starter', ['ionic', 'starter.controllers'])
 });
 
 app.factory('geolocation', ['$window', function(win) {
-      
+      var loc;
        //tells the app the device is ready
     //document.addEventListener("deviceready", onDeviceReady, false);
     //function onDeviceReady() {
@@ -74,18 +73,22 @@ app.factory('geolocation', ['$window', function(win) {
   // Gets the current position of the user and centers the screen to that
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
     function onSuccess(position){
-      lat = position.coords.latitude;
-      lng = position.coords.longitude;
+      loc.lat = position.coords.latitude;
+      loc.lng = position.coords.longitude;
+      console.log(loc.lat, loc.lng);
     }
     //Defaults to pos (0,0) if position can not be determined
     function onError(error){
       alert('Error');
       alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
-      lat = 0;
-      lng = 0;
+      lat = 48;
+      lng = 123; 
     }
+    console.log(loc.lat, loc.lng);
+    return(loc);
     
 }]);
+
 
 /* app.factory('elements', ['$window', function(win, getCoords){
   
@@ -115,7 +118,7 @@ app.factory('map',['$window', '$q', function(win, $q, geolocation) {
     
     promise: $q(function(resolve, reject) {
       //Creates a point at the users location
-      var myCenter = new google.maps.LatLng(lat,lng);
+      var myCenter = new google.maps.LatLng(loc.lat,loc.lng);
       
       var comments = [];
       var xCoords = [];
