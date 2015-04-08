@@ -34,24 +34,33 @@ angular.module('starter.controllers', [])
     $scope.toilets = resp.data;},
     function(err) {
     console.error('ERR', err);
-  // err.status will contain the status code
+    console.log($scope.toilets);
+      // err.status will contain the status code
   });
 })
-//a holding mechanism to pass values off to the map factory
-/*.controller('passValues', function($scope, $q, elements){
-    var values = $q(function(response){elements.toilets;});
-})*/
+  //a holding mechanism to pass values off to the map factory
+  /*.controller('passValues', function($scope, $q, elements){
+      var values = $q(function(response){elements.toilets;});
+  })*/
 
-  //some framework for the lists on the side
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.toiletOptions = [
-    { title: 'Add a Loo', id: 1 },
-    { title: 'Find Nearest Loo', id: 2 }
-  ];
-})
+    //some framework for the lists on the side
+
+    /*
+      Unused controller (old?)
+  .controller('PlaylistsCtrl', function($scope) {
+    $scope.toiletOptions = [
+      { title: 'Add a Loo', id: 1 },
+      { title: 'Find Nearest Loo', id: 2 }
+    ];
+  })
+
+  */
 
 .controller('PlaylistCtrl', function($scope, $stateParams, map, geolocation, $q) {
   // When the map is loaded
+  $scope.lat = "0";
+  $scope.lng = "0";
+
   map.promise.then(function(response){
     response.setCenter(new google.maps.LatLng(geolocation.lat, geolocation.lng ));
   });
@@ -61,5 +70,12 @@ angular.module('starter.controllers', [])
     setTimeout(function() {
       resolve('This worked! And should contain your geolocation data from your geolocation factory.');
     }, 2000);
-  });
+  }); 
+ 
+    navigator.geolocation.getCurrentPosition(onSuccess);
+    function onSuccess(position){
+      $scope.lat = position.coords.latitude;
+      $scope.lng = position.coords.longitude;
+    }
+    console.log(lat, lng);
 });

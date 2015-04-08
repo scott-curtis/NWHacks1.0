@@ -5,17 +5,16 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var loc;
 var app = angular.module('starter', ['ionic', 'starter.controllers'])
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
+      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+      // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
+        // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
   });
@@ -64,28 +63,26 @@ var app = angular.module('starter', ['ionic', 'starter.controllers'])
 });
 
 app.factory('geolocation', ['$window', function(win) {
-      var loc;
-       //tells the app the device is ready
-    //document.addEventListener("deviceready", onDeviceReady, false);
-    //function onDeviceReady() {
-    //console.log("navigator.geolocation works well");}
-    //initializes the app
-  // Gets the current position of the user and centers the screen to that
+    var lat;
+    var lng;
+      //tells the app the device is ready
+      //document.addEventListener("deviceready", onDeviceReady, false);
+      //function onDeviceReady() {
+      //console.log("navigator.geolocation works well");}
+      //initializes the app
+      // Gets the current position of the user and centers the screen to that
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
     function onSuccess(position){
-      loc.lat = position.coords.latitude;
-      loc.lng = position.coords.longitude;
-      console.log(loc.lat, loc.lng);
+      lat = position.coords.latitude;
+      lng = position.coords.longitude;
+      console.log(lat, lng);
     }
     //Defaults to pos (0,0) if position can not be determined
     function onError(error){
       alert('Error');
       alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
-      lat = 48;
-      lng = 123; 
     }
-    console.log(loc.lat, loc.lng);
-    return(loc);
+    return;
     
 }]);
 
@@ -117,12 +114,12 @@ app.factory('map',['$window', '$q', function(win, $q, geolocation) {
     }, */
     
     promise: $q(function(resolve, reject) {
-      //Creates a point at the users location
-      var myCenter = new google.maps.LatLng(loc.lat,loc.lng);
+        //Creates a point at the users location
+      var myCenter = new google.maps.LatLng(48.469, -123.414);
       
       var comments = [];
-      var xCoords = [];
-      var yCoords = [];
+      var xCoords = [48.495, 48.396, 48.439];
+      var yCoords = [-123.535, -123.554, -123.311];
       
       total = parseInt(toilets.length);
       for(var i=0;i<total;i++)
@@ -131,14 +128,14 @@ app.factory('map',['$window', '$q', function(win, $q, geolocation) {
         else{xCoords[i] = toilets[i];}
         
         
-      //Initializes the map
+        //Initializes the map
       function initialize() {
-        // Reset the markers
-        //markers = [];
-        
-        // Initialize the map
+          // Reset the markers
+          //markers = [];
+          
+          // Initialize the map
         var mapProp = {
-          center:new google.maps.LatLng(lat,lng),
+          center:new google.maps.LatLng(48.469, -123.414),
           zoom:9,
           mapTypeId:google.maps.MapTypeId.ROADMAP
         };
@@ -150,16 +147,15 @@ app.factory('map',['$window', '$q', function(win, $q, geolocation) {
           temp = new google.maps.LatLng(xCoords[i], yCoords[i]);
           temp2 = new google.maps.Marker({position: temp});
           temp2.setMap(map);
-          alert('SUCCESS: ' + xCoord[i]);
         } );
         
-        //Creates a Marker at the users current position
+          //Creates a Marker at the users current position
         var currentPosMarker = new google.maps.Marker({position:myCenter,
           animation:google.maps.Animation.BOUNCE
         });
         currentPosMarker.setMap(map);
         
-        // Return the reference to the map
+          // Return the reference to the map
         resolve(map);
       }
       
